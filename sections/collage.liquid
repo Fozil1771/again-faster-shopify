@@ -1,0 +1,81 @@
+<section class="collage">
+    <div class="container">
+        <div class="collage-inner">
+            {% for block in section.blocks %}
+
+                <div class="collage-item collage-item__{{ block.type }}">
+                    {% case block.type %}
+                        {% when 'image' %}
+                            <div class="collage-block collage-banner">
+                                {%- if block.settings.image != blank -%}
+                                    <img src="{{ block.settings.image | image_url }}" alt="">
+                                {%- else -%}
+                                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                                {%- endif -%}
+                            </div>
+                        
+                        {% when 'collection' %}
+                            <div class="collage-block collage-collection">
+                                <a href="{{ block.settings.collection.url | within: collection }}" class="product-item">
+                                    <div class="product-item__img">
+                                        <img alt="{{ block.settings.collection.title }}" src=" {{ block.settings.collection.featured_image | image_url }} " />
+                                    </div>
+                                    <h5 class="product-item__title">{{ block.settings.collection.title }}</h5>
+                                </a>
+                            </div>
+                    {% endcase %}
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+{% schema %}
+{
+    "name": "t:sections.collage.name",
+    "tag": "section",
+    "class": "section",
+    
+    "blocks": [
+    {
+        "type": "image",
+        "name": "t:sections.collage.blocks.image.name",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "t:sections.collage.blocks.image.settings.image.label"
+          }
+        ]
+      },
+      {
+        "type": "collection",
+        "name": "t:sections.collage.blocks.collection.name",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "t:sections.collage.blocks.collection.settings.collection.label"
+          }
+        ]
+      }
+    ],
+    "max_blocks": 2,
+    "presets": [
+      {
+        "name": "t:sections.collage.presets.name",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "collection"
+          }
+        ]
+      }
+    ]
+}
+
+{% endschema %}

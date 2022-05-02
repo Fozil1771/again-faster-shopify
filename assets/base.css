@@ -1,0 +1,25 @@
+/* colors */
+
+.transparent {
+	background: transparent;
+}
+
+.color-accent-1 {
+	background: red;
+}
+
+.color-accent-2 {
+	background: blue;
+}
+
+.color-background-1 {
+	background: rgb(151, 184, 202);
+}
+
+.color-background-1 {
+	background: rgb(78, 78, 121);
+}
+
+.color-inverse {
+	background: gray;
+}

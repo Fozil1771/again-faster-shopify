@@ -1,0 +1,64 @@
+<div class="container">
+
+    <div class="product-slider swiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            {%- for product in section.settings.collection.products -%}
+                <div class="product-slide swiper-slide">
+                  
+
+                    <a href="{{ product.url | within: collection }}" class="product-item">
+                        <div class="product-item__img">
+                            <img alt="{{ product.title }}" src=" {{ product.featured_media | image_url }} " />
+                        </div>
+                        <h5 class="product-item__title">{{ product.title }}</h5>
+                    </a>
+                </div>
+            {%- endfor -%}
+            
+        </div>
+
+
+        <!-- If we need scrollbar -->
+        <div class="swiper-scrollbar"></div>
+    </div>
+
+</div>
+
+<script>
+     "{{collection.products}}".map(item => {
+         console.log(item)
+     })
+</script>
+
+
+{% schema %}
+
+{
+    "name": "t:sections.featured-collection.name",
+    "tag": "section",
+    "class": "section",
+   
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "default": "Featured collection",
+            "label": "t:sections.featured-collection.settings.title.label"
+        },
+        {
+            "type": "collection",
+            "id": "collection",
+            "label": "t:sections.featured-collection.settings.collection.label"
+        }
+    ],
+    "presets": [
+        {
+            "category": "Collection",
+            "name":"Featured Collection"
+        }
+    ]
+}
+
+{% endschema %}
