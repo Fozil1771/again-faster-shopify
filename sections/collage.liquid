@@ -1,5 +1,5 @@
 <section class="collage">
-    <div class="container">
+    
         <div class="collage-inner">
             {% for block in section.blocks %}
 
@@ -15,20 +15,35 @@
                             </div>
                         
                         {% when 'collection' %}
+                        
+                        
+                        
                             <div class="collage-block collage-collection">
-                                <a href="{{ block.settings.collection.url | within: collection }}" class="product-item">
-                                    <div class="product-item__img">
-                                        <img alt="{{ block.settings.collection.title }}" src=" {{ block.settings.collection.featured_image | image_url }} " />
-                                    </div>
-                                    <h5 class="product-item__title">{{ block.settings.collection.title }}</h5>
-                                </a>
+                            
+                                <div class="collection-item">
+                                      <div class="collection-item__img">
+                                          <img alt="{{ block.settings.collection.title }}" src=" {{ block.settings.collection.featured_image | image_url }} " />
+                                      </div>
+                                      <div class="collection-item__type">
+                                        {% for option in block.settings.collection.sort_options %}
+                                          {% if option.value contains 'best-' %}
+                                            <span>{{ option.name | upcase }}</span>
+                                          {% endif %}
+                                        {% endfor %}
+                                      </div>
+                                      <h5 class="collection-item__title">{{ block.settings.collection.title | upcase  }}</h5>
+                                      <p class="collection-item__text">{{ block.settings.collection.description }}</p>
+                                      <a href="{{ block.settings.collection.url | within: collection }}" class="collection-item__link">
+                                        {{ block.settings.button_label | escape | upcase }}
+                                      </a>
+                                </div>
                             </div>
                     {% endcase %}
                 </div>
 
             {% endfor %}
         </div>
-    </div>
+   
 </section>
 
 
@@ -58,7 +73,12 @@
             "type": "collection",
             "id": "collection",
             "label": "t:sections.collage.blocks.collection.settings.collection.label"
-          }
+          },
+          {
+              "type": "text",
+              "id": "button_label",
+              "label": "Button label"
+            }
         ]
       }
     ],
