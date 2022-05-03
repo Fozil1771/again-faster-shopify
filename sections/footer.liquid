@@ -4,23 +4,24 @@
 	<div class="af-pattern">{% render 'af-pattern' %}</div>
 	<div class="container">
 		<footer class="footer">
-			<div class="footer-block--newsletter">
+			<div class="footer-inner">
+                <div class="footer-block--newsletter">
 				{%- if section.settings.newsletter_enable -%} {%- if
 				section.settings.newsletter_heading != blank -%}
 				<h2 class="footer-block__heading">
-					{{ section.settings.newsletter_heading | escape }}
+					{{ section.settings.newsletter_heading | escape | upcase }}
 				</h2>
 				{%- endif -%}
-				<div class="newsletter">
-					<div class="input">
-						<input placeholder="Email" type="text" />
+				<div class="footer-newsletter">
+					<div class="newsletter-input">
+						<input placeholder="{{ section.settings.input_placeholder | escape }}" type="text" />
 						<button>{% render 'arrow-right' %}</button>
 					</div>
 				</div>
 				{%- endif -%}
 
                 {%- if section.settings.show_social -%}
-                    <ul class="footer__list-social list-unstyled list-social" role="list">
+                    <ul class="footer__list-social list-social" role="list">
                         {%- if settings.social_mail_link != blank -%}
                         <li class="list-social__item">
                             <a href="{{ settings.social_mail_link }}" class="link list-social__link" >
@@ -62,7 +63,7 @@
 			<div class="footer-block">
 				{%- if block.settings.heading != blank -%}
 				<h2 class="footer-block__heading">
-					{{- block.settings.heading | escape -}}
+					{{- block.settings.heading | escape | upcase -}}
 				</h2>
 				{%- endif -%} 
                 {% case block.type %} 
@@ -86,12 +87,13 @@
 			</div>
 
 			{% endfor %}
-			<div class="footer-copyright">
+            </div>
+			
+             <div class="footer-copyright">
                
                 <p>{{ section.settings.copyright }}</p>
                
             </div>
-             
 		</footer>
 	</div>
 </div>
@@ -183,8 +185,14 @@
         {
             "type": "text",
             "id": "newsletter_heading",
-            "default": "Subscribe to our emails",
+            "default": "Newsletter",
             "label": "t:sections.footer.settings.newsletter_heading.label"
+        },
+        {
+            "type": "text",
+            "id": "input_placeholder",
+            "default": "Enter your email",
+            "label": "t:sections.footer.settings.input_placeholder.label"
         },
         {
             "type": "header",
