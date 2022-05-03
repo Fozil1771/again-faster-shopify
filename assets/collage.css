@@ -1,0 +1,78 @@
+.collage {
+	margin: 5rem 0;
+	height: 100vh;
+}
+
+.collage-inner {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	column-gap: 3.5%;
+}
+
+@media screen and (min-width: 1920px) {
+	.collage-inner {
+		justify-content: space-evenly;
+	}
+}
+
+.collage-item__image,
+.collage-banner {
+	height: 100%;
+}
+
+.collage-item__image img {
+	height: 100%;
+}
+
+.collage-block img {
+	width: 100%;
+}
+
+.collection-item {
+	margin-right: 5rem;
+}
+
+.collection-item__img img {
+	max-height: 620px;
+	height: 100%;
+}
+
+.collection-item__type {
+	font-size: 0.875rem;
+	font-weight: 300;
+	margin-top: 2.5rem;
+}
+
+.collection-item__title {
+	font-size: 1.5rem;
+	font-weight: 600;
+	letter-spacing: 0.2rem;
+	margin-top: 0.5rem;
+}
+
+.collection-item__text {
+	color: #8f8f8f;
+	font-size: 0.875rem;
+	font-weight: 400;
+	margin-top: 1rem;
+	margin-bottom: 2.5rem;
+}
+
+.collection-item__link {
+	font-size: 0.875rem;
+	font-weight: 400;
+	color: #000;
+	position: relative;
+}
+
+.collection-item__link::before {
+	content: "";
+	position: absolute;
+	bottom: -0.5rem;
+	left: 0;
+	height: 1px;
+	width: 100%;
+	background-color: #000;
+}
