@@ -447,6 +447,9 @@
                 "newsletter_heading": {
                     "label": "Heading"
                 },
+                "input_placeholder": {
+                    "label": "Placeholder"
+                },
                 "newsletter_enable": {
                     "label": "Show email signup"
                 },
