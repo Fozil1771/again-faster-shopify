@@ -381,9 +381,14 @@
             "settings": {
                 "title": {
                     "label": "Collection name"
-                },
-                "collection": {
-                    "label": "Select collection"
+                }
+            },
+            "blocks": {
+                "name": "Collection blocks",
+                "settings": {
+                    "collection": {
+                        "label": "Select collection"
+                    }
                 }
             }
         },
