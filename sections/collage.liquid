@@ -25,15 +25,11 @@
                                           <img alt="{{ block.settings.collection.title }}" src=" {{ block.settings.collection.featured_image | image_url }} " />
                                       </div>
                                       <div class="collection-item__type">
-                                        {% for option in block.settings.collection.sort_options %}
-                                          {% if option.value contains 'best-' %}
-                                            <span>{{ option.name | upcase }}</span>
-                                          {% endif %}
-                                        {% endfor %}
+                                            <span>{{ block.settings.collection.title | upcase  }}</span>
                                       </div>
-                                      <h5 class="collection-item__title">{{ block.settings.collection.title | upcase  }}</h5>
-                                      <p class="collection-item__text">{{ block.settings.collection.description }}</p>
-                                      <a href="{{ block.settings.collection.url | within: collection }}" class="collection-item__link">
+                                      <h5 class="collection-item__title">{{ block.settings.heading | upcase  }}</h5>
+                                      <p class="collection-item__text">{{ block.settings.description }}</p>
+                                      <a href="{{ block.settings.button_link }}" class="collection-item__link">
                                         {{ block.settings.button_label | escape | upcase }}
                                       </a>
                                 </div>
@@ -76,8 +72,23 @@
           },
           {
               "type": "text",
+              "id": "heading",
+              "label": "Collection heading"
+            },
+            {
+              "type": "text",
+              "id": "description",
+              "label": "Collection text content"
+            },
+          {
+              "type": "text",
               "id": "button_label",
               "label": "Button label"
+            },
+            {
+              "type": "url",
+              "id": "button_link",
+              "label": "Button link"
             }
         ]
       }

@@ -5,6 +5,7 @@
 	<div class="container">
 		<footer class="footer">
 			<div class="footer-inner">
+            
                 <div class="footer-block--newsletter">
 				{%- if section.settings.newsletter_enable -%} {%- if
 				section.settings.newsletter_heading != blank -%}
@@ -12,12 +13,26 @@
 					{{ section.settings.newsletter_heading | escape | upcase }}
 				</h2>
 				{%- endif -%}
-				<div class="footer-newsletter">
-					<div class="newsletter-input">
-						<input placeholder="{{ section.settings.input_placeholder | escape }}" type="text" />
-						<button>{% render 'arrow-right' %}</button>
-					</div>
-				</div>
+                {% form 'customer' , id: 'ContactForm' %}
+            	    <input type="hidden" name="contact[tags]" value="newsletter">
+                    <div class="footer-newsletter">
+                        <div class="newsletter-input">
+                        
+                            <input 
+                                id="NewsletterForm--{{ section.id }}"
+                                autocomplete="email"
+                                autocapitalize="off"
+                                placeholder="{{ section.settings.input_placeholder | escape }}" 
+                                type="email"
+                                id="ContactForm-email"
+                                name="contact[email]" 
+                                value="{{ form.email }}"
+                            />
+                            <button type="submit">{% render 'arrow-right' %}</button>
+                        </div>
+                    </div>
+
+                {% endform %}
 				{%- endif -%}
 
                 {%- if section.settings.show_social -%}
@@ -26,7 +41,7 @@
                         <li class="list-social__item">
                             <a href="{{ settings.social_mail_link }}" class="link list-social__link" >
                             {%- render 'icon-mail' -%}
-                            {% if settings.show_social_label %}
+                            {% if section.settings.show_social_label %}
                                 <span class="visually-hidden">{{ 'general.social.links.mail' | t }}</span>
                             {% endif %}
                             </a>
@@ -36,7 +51,7 @@
                         <li class="list-social__item">
                             <a href="{{ settings.social_facebook_link }}" class="link list-social__link" >
                             {%- render 'icon-facebook' -%}
-                            {% if settings.show_social_label %}
+                            {% if section.settings.show_social_label %}
                                 <span class="visually-hidden">{{ 'general.social.links.facebook' | t }}</span>
                             {% endif %}
                             </a>
@@ -47,7 +62,7 @@
                         <li class="list-social__item">
                             <a href="{{ settings.social_instagram_link }}" class="link list-social__link" >
                             {%- render 'icon-instagram' -%}
-                            {% if settings.show_social_label %}
+                            {% if section.settings.show_social_label %}
                                 <span class="visually-hidden">{{ 'general.social.links.instagram' | t }}</span>
                             {% endif %}
                             </a>
@@ -218,16 +233,12 @@
             "default": "© 2022 Again Faster. All Rights Reserved"
         }
     ],
-    "default": {
-        "blocks": [
-            {
-                "type": "link_list"
-            },
-            {
-                "type": "text"
-            }
-        ]
-    }
+    
+    "presets": [
+        {
+        "name": "t:sections.contact-form.presets.name"
+        }
+    ]
 }
 
 {% endschema %}
