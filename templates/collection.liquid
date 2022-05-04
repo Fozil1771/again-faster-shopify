@@ -1,6 +1,7 @@
 <div class="container">
     <h1>{{ collection.title }}</h1>
-
+    <h2>Metafields</h2>
+    <div>{{ collection.metafields.details.eyebrow }}</div>
     {%- if collection.description != blank -%}
         <p>{{ collection.description }}</p>
     {%- endif -%}
