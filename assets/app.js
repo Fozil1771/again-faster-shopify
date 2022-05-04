@@ -10,5 +10,6 @@ const swiper = new Swiper('.swiper', {
     // And if we need scrollbar
     scrollbar: {
         el: '.swiper-scrollbar',
+        dragSize: 215,
     }
 });
