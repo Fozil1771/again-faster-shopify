@@ -1,0 +1,20 @@
+<div class="collection-master-header">
+    <div class="collection-master-header--content">
+        <span class="header-eyebrow">/ {{ collection.metafields.collection_details.eyebrow | upcase }}</span>
+        <h1 class="header-title">{{collection.metafields.collection_details.title | upcase}}</h1>
+        <a class="c-btn c-btn--arrow c-btn--dark" href="{{collection.metafields.collection_details.cta_url}}">
+            <span>{{collection.metafields.collection_details.cta_label | escape }}</span>
+            <span>{% render 'arrow-right' %}</span>
+        </a>
+    </div>
+
+    <div class="collection-master-header--media">
+        <div class="header-image_1 header-image">
+
+            <img src="{{ collection.metafields.collection_details.image_1[0].src }}" alt="image_1">
+        </div>
+        <div class="header-image_2 header-image">
+            <img src="{{ collection.metafields.collection_details.image_2[0].src }}" alt="image_2">
+        </div>
+    </div>
+</div>

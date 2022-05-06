@@ -10,7 +10,10 @@
                         <div class="product-item__img">
                             <img alt="{{ block.settings.collection.title }}" src=" {{ block.settings.collection.image | image_url }} " />
                         </div>
-                        <h5 class="product-item__title">{{ block.settings.collection.title }}</h5>
+                        
+                        <div class="product-item__title">
+                            <h5 class="">{{ block.settings.collection.title }}</h5>
+                        </div>
                     </a>
                 </div>
             {%- endfor -%}

@@ -1,0 +1,15 @@
+<div class="collection-master">
+    {% assign collectionsArray = collection.metafields.accentuate.collections | split: "|" %}
+
+    {% for collectionItem in collectionsArray %}
+    
+    <a class="product-item collection-master-item" href="/collections/{{ collections[collectionItem].handle }}">
+        <div class="product-item__img">
+            <img src="{{ collections[collectionItem].image.src | img_url: 'large' }}" alt="collection-image">
+        </div>
+        <div class="product-item__title">
+            <h5>{{ collections[collectionItem].title }}</h5>
+        </div>
+    </a>
+    {% endfor %}
+ </div>
