@@ -1,33 +1,55 @@
 <div class="container">
-    <h1>{{ collection.title }}</h1>
-    <h2>Metafields</h2>
-    <div>{{ collection.metafields.details.eyebrow }}</div>
-    {%- if collection.description != blank -%}
-        <p>{{ collection.description }}</p>
-    {%- endif -%}
+    <div class="product-list">
+        <h1 class="product-list__title ">{{ collection.title | upcase }}</h1>
+        <!-- {%- if collection.description != blank -%}
+            <p>{{ collection.description }}</p>
+        {%- endif -%} -->
 
-    <ul class="collection-products">
-        {%- for product in collection.products -%}
+        <ul class="collection-list">
+            {% for item in collections %}
+
+            {% assign pathName = '/collections/' | append: item.handle %}
+
+
+            {% if request.path == pathName %}
+            {% assign activeClass = 'active' %}
+            {% else %}
+            {% assign activeClass = '' %}
+            {% endif %}
+
+            <script>
+                console.log('{{activeClass}}')
+            </script>
+
+            {% unless item.handle contains 'master' %}
+            <a class="collection-list--link {{activeClass}}" href=" /collections/{{ item.handle }}">
+                {{item.title | upcase}}
+            </a>
+            {% endunless %}
+            {% endfor %}
+        </ul>
+
+        <ul class="collection-products">
+            {%- for product in collection.products -%}
             <li>
                 <a class="product-card" href="{{ product.url | within: collection }}">
-                    <img src="{{ product.featured_image.src | img_url }}" alt="">
-                    {{ product.title }}
-                    <p>
-                        <span aria-hidden="true">—</span>
+                    <div class="product-card__img">
+                        <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="">
+                    </div>
+                    <h5 class="product-card__title">{{ product.title | upcase }}</h5>
+                    <div class="product-card__stars"></div>
+                    <span class="product-card__price">
                         {%- if product.price_varies -%}
-                            <span class="visuallyhidden">Starting at</span>
-                            {{ product.price_min | money_without_trailing_zeros }}
-                            <span aria-hidden="true">+</span>
+                        {{ product.price_min | money_without_trailing_zeros }}
+                        <span aria-hidden="true">+</span>
                         {%- else -%}
-                            {{ product.price | money_without_trailing_zeros }}
+                        {{ product.price | money_without_trailing_zeros }}
                         {%- endif -%}
-                    </p>
-                    <p>
-                        <span class="visuallyhidden">by</span>
-                        {{ product.vendor }}
-                    </p>
+                    </span>
+
                 </a>
             </li>
-        {%- endfor -%}
-    </ul>
+            {%- endfor -%}
+        </ul>
+    </div>
 </div>

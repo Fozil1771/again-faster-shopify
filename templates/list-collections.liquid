@@ -1,6 +1,4 @@
 {% for collection in collections %}
-<h1>Metafields</h1>
-<div>{{ collection.metafields.details.eyebrow }}</div>
   {% unless collection.handle == 'frontpage' %}
     {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
     <a href="{{ collection.url }}">More {{ collection_title }} &rsaquo;</a>

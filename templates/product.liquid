@@ -23,6 +23,12 @@
   </select>
   {{ current_variant.price | money }}
   <label for="Quantity">quantity</label>
+  <script>
+    console.log('{{product.metafields.accentuate.bonus}}')
+  </script>
+  {% if product.metafields.accentuate.bonus %}
+    <p>Mug as a bonus</p>
+  {% endif %}
   <input type="number" id="Quantity" name="quantity" value="1" min="1">
   <button type="submit" name="add" id="AddToCart">Add to cart</button>
 </form>
