@@ -1,0 +1,61 @@
+main {
+	min-height: 100vh;
+}
+
+.collection-master-header {
+	margin: 2.5rem 0 5rem;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	column-gap: 4rem;
+	position: relative;
+}
+
+.collection-master-header--content {
+	flex: 0 1 40%;
+}
+
+.collection-master-header--media {
+	flex: 0 1 60%;
+}
+
+.header-image_1 {
+	width: 570px;
+	height: 790px;
+}
+
+.header-image_2 {
+	position: absolute;
+	bottom: -10%;
+	right: 0;
+	width: 304px;
+	height: 359px;
+}
+
+.header-image img {
+	width: 100%;
+	height: 100%;
+}
+
+.collection-master {
+	padding: 2.5rem 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	row-gap: 2.5rem;
+	column-gap: 1rem;
+}
+
+.collection-master-item {
+	margin-inline: auto;
+}
+
+.header-eyebrow {
+	font-size: 0.75rem;
+}
+
+.header-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 1rem;
+	margin-bottom: 2.5rem;
+}

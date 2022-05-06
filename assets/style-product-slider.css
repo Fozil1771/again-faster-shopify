@@ -1,0 +1,21 @@
+.swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-wrapper {
+	margin-bottom: 2rem;
+}
+
+.swiper-horizontal > .swiper-scrollbar {
+	height: 2px !important;
+	width: 100% !important;
+}
+
+.swiper-scrollbar-drag {
+	height: 2px !important;
+}
+
+.product-slider {
+	margin: 5rem 0;
+}

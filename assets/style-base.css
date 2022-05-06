@@ -31,3 +31,30 @@ a {
 li {
 	list-style: none;
 }
+
+.c-btn {
+	background: transparent;
+	height: 58px;
+	max-width: 236px;
+}
+
+.c-btn--white {
+	border: 1px solid #fff;
+	color: #fff;
+}
+
+.c-btn--dark {
+	border: 1px solid #000;
+	color: #000;
+}
+
+.c-btn--dark svg path {
+	fill: #000;
+}
+
+.c-btn--arrow {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1.25rem 1.5rem;
+}

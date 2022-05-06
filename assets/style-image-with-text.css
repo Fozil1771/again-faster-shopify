@@ -34,18 +34,3 @@
 	margin-top: 1.5rem;
 	line-height: 1.5rem;
 }
-
-.c-btn {
-	color: #fff;
-	background: transparent;
-	border: 1px solid #fff;
-	height: 58px;
-	max-width: 236px;
-}
-
-.c-btn--arrow {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 1.25rem 1.5rem;
-}
