@@ -1,5 +1,148 @@
 {
-  "current": "Default",
+  "current": {
+    "social_facebook_link": "",
+    "social_instagram_link": "",
+    "social_email_link": "",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "announcement-bar-0": {
+            "type": "announcement",
+            "settings": {
+              "text": "Welcome to our store",
+              "color_scheme": "transparent",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "announcement-bar-0"
+        ],
+        "settings": {}
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "color_scheme": "transparent"
+        }
+      },
+      "image-with-text": {
+        "type": "image-with-text",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/hero-media.jpg",
+          "title": "Team barbell",
+          "text": "<p>Team Barbell was to design a piece of equipment that matches the performance and quality of other elite level competition bars.<\/p>",
+          "button_label": "",
+          "button_link": ""
+        }
+      },
+      "products-slider": {
+        "type": "products-slider",
+        "blocks": {
+          "products-slider-0": {
+            "type": "collection",
+            "settings": {
+              "collection": "affiliate-outfitting"
+            }
+          },
+          "102c516c-65e1-43b2-a4a1-25f8731d56d6": {
+            "type": "collection",
+            "settings": {
+              "collection": "all-collections"
+            }
+          },
+          "336a8938-f27e-4ef0-9b74-0e3dc7f80eab": {
+            "type": "collection",
+            "settings": {
+              "collection": "squat-racks"
+            }
+          },
+          "15664a5b-4abb-4059-b0ea-70b63a1c75f6": {
+            "type": "collection",
+            "settings": {
+              "collection": "garage-package"
+            }
+          },
+          "addea1ee-d78b-4a3a-8a01-72c69010352d": {
+            "type": "collection",
+            "settings": {
+              "collection": "training-bumps"
+            }
+          }
+        },
+        "block_order": [
+          "products-slider-0",
+          "102c516c-65e1-43b2-a4a1-25f8731d56d6",
+          "336a8938-f27e-4ef0-9b74-0e3dc7f80eab",
+          "15664a5b-4abb-4059-b0ea-70b63a1c75f6",
+          "addea1ee-d78b-4a3a-8a01-72c69010352d"
+        ],
+        "settings": {
+          "title": "Featured collection"
+        }
+      },
+      "collage": {
+        "type": "collage",
+        "blocks": {
+          "ec0a25a3-7c48-4eac-ba1f-748e9ffe9401": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Rectangle_27_1.jpg"
+            }
+          },
+          "7503871c-0d09-45d0-8d10-7a8abc2e4dc5": {
+            "type": "collection",
+            "settings": {
+              "collection": "best-sellers",
+              "heading": "TRULY, AN ALL IN ONE BARBELL",
+              "description": "Design that matches the performance and quality of other elite level competition bars",
+              "button_label": "Shop weights",
+              "button_link": "shopify:\/\/collections\/best-sellers"
+            }
+          }
+        },
+        "block_order": [
+          "ec0a25a3-7c48-4eac-ba1f-748e9ffe9401",
+          "7503871c-0d09-45d0-8d10-7a8abc2e4dc5"
+        ],
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "17d52033-9ce7-4d56-817f-801d05b10bee": {
+            "type": "link_list",
+            "settings": {
+              "heading": "again faster",
+              "menu": "footer-main"
+            }
+          },
+          "b8fb422f-f2b9-4e76-83e5-bec64b6e2711": {
+            "type": "link_list",
+            "settings": {
+              "heading": "get help",
+              "menu": "footer-help"
+            }
+          }
+        },
+        "block_order": [
+          "17d52033-9ce7-4d56-817f-801d05b10bee",
+          "b8fb422f-f2b9-4e76-83e5-bec64b6e2711"
+        ],
+        "settings": {
+          "color_scheme": "inverse",
+          "newsletter_enable": true,
+          "newsletter_heading": "Newsletter",
+          "input_placeholder": "Enter your email",
+          "show_social": true,
+          "show_social_label": true,
+          "copyright": "© 2022 Again Faster. All Rights Reserved"
+        }
+      }
+    },
+    "content_for_index": []
+  },
   "presets": {
     "Default": {
       "social_email_link": "",
