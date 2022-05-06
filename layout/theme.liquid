@@ -10,12 +10,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   {{ content_for_header }}
   <!-- Header hook for plugins -->
-  {{ 'base.css' | asset_url | stylesheet_tag }}
-  {{ 'main.css' | asset_url | stylesheet_tag }}
-  {{ 'header.css' | asset_url | stylesheet_tag }}
-  {{ 'image-with-text.css' | asset_url | stylesheet_tag }}
-  {{ 'product-slider.css' | asset_url | stylesheet_tag }}
-  {{ 'collage.css' | asset_url | stylesheet_tag }}
+  {{ 'style-base.css' | asset_url | stylesheet_tag }}
+  {{ 'style-main.css' | asset_url | stylesheet_tag }}
+  {{ 'style-header.css' | asset_url | stylesheet_tag }}
+  {{ 'style-image-with-text.css' | asset_url | stylesheet_tag }}
+  {{ 'style-product-slider.css' | asset_url | stylesheet_tag }}
+  {{ 'style-collage.css' | asset_url | stylesheet_tag }}
+  {{ 'style-collection-master.css' | asset_url | stylesheet_tag }}
+  {{ 'style-product-list.css' | asset_url | stylesheet_tag }}
+  {{ 'style-product-card.css' | asset_url | stylesheet_tag }}
  
 
   <!-- slider link -->
@@ -37,7 +40,7 @@
 
 
   {{ 'https://unpkg.com/swiper@8/swiper-bundle.min.js'| script_tag }}
-  {{ 'app.js' | asset_url | script_tag }}
+  {{ 'script-app.js' | asset_url | script_tag }}
 </body>
 
 
