@@ -18,6 +18,10 @@
         "vimeo": "Vimeo",
         "tiktok": "TikTok"
       }
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext_html": "404"
     }
   },
   "sections": {
