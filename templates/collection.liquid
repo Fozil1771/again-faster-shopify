@@ -8,21 +8,18 @@
         <ul class="collection-list">
             {% for item in collections %}
 
-            {% assign pathName = '/collections/' | append: item.handle %}
-
-
-            {% if request.path == pathName %}
+            {% if request.path == item.url %}
             {% assign activeClass = 'active' %}
             {% else %}
             {% assign activeClass = '' %}
             {% endif %}
 
             <script>
-                console.log('{{activeClass}}')
+                console.log('{{item.url}}' == '{{ request.path }}')
             </script>
 
             {% unless item.handle contains 'master' %}
-            <a class="collection-list--link {{activeClass}}" href=" /collections/{{ item.handle }}">
+            <a class="collection-list--link {{activeClass}}" href="{{ item.url }}">
                 {{item.title | upcase}}
             </a>
             {% endunless %}
