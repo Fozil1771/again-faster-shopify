@@ -1,4 +1,4 @@
-new Swiper('.swiper', {
+var swiper = new Swiper('.swiper', {
     // Optional parameters
     loop: false,
     nav: false,

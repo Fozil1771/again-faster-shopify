@@ -15,10 +15,10 @@
 	flex: 0 1 50%;
 }
 
-.swiper-slide {
+.product-details__slider .swiper-slide {
 	width: 100% !important;
 }
 
-.swiper-slide img {
+.product-details__slider .swiper-slide img {
 	width: 100%;
 }

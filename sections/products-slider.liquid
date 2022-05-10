@@ -5,6 +5,9 @@
         <div class="swiper-wrapper">
             <!-- Slides -->
             {%- for block in section.blocks -%}
+            <script>
+                console.log('{{block.settings.collection.title }}')
+            </script>
                <div class="product-slide swiper-slide">
                     <a href="{{ block.settings.collection.url }}" class="product-item">
                         <div class="product-item__img">
@@ -26,9 +29,6 @@
     </div>
 
 </div>
-
-
-
 
 
 {% schema %}
