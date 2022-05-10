@@ -1,0 +1,24 @@
+.variantBtn.active {
+	background: red;
+}
+
+.product-details {
+	display: flex;
+}
+
+.product-details__slider {
+	height: 100vh;
+}
+
+.product-details__slider,
+.product-details__content {
+	flex: 0 1 50%;
+}
+
+.swiper-slide {
+	width: 100% !important;
+}
+
+.swiper-slide img {
+	width: 100%;
+}

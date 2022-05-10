@@ -1,4 +1,4 @@
-const swiper = new Swiper('.swiper', {
+new Swiper('.swiper', {
     // Optional parameters
     loop: false,
     nav: false,
@@ -12,4 +12,16 @@ const swiper = new Swiper('.swiper', {
         el: '.swiper-scrollbar',
         dragSize: 215,
     }
+});
+
+
+new Swiper(".product-swiper", {
+    direction: "vertical",
+    allowTouchMove: true,
+    draggable: true,
+    freeMode: true,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
 });
