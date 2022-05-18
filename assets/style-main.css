@@ -10,6 +10,22 @@ body {
 	font-family: "Open Sans", sans-serif;
 }
 
+body::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background: #f1f1f1;
+}
+
+body::-webkit-scrollbar {
+	width: 0.25rem;
+	background-color: #f5f5f5;
+}
+
+body::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: #353535;
+	height: 15px;
+}
+
 .container {
 	max-width: 1408px;
 	padding: 0 1rem;
@@ -23,4 +39,8 @@ li {
 
 a {
 	text-decoration: none;
+}
+
+svg path {
+	pointer-events: none;
 }
