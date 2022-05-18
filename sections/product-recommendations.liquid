@@ -1,0 +1,82 @@
+
+<section class="container">
+    <h3>{{ section.settings.title }}</h3>
+    <ul class="products-recommendation">
+        {%- for block in section.blocks  -%}
+        <script> console.log("{{block}}")</script>
+        <li>
+            <a class="product-card" href="{{ block.settings.product.url }}">
+                <div class="product-card__badges">
+                    {% if block.settings.product.metafields.accentuate.category != blank %}
+                    <div class="card-badge card-badge-fill">{{block.settings.product.metafields.accentuate.category}}</div>
+                    {% endif %}
+                    {% if block.settings.product.metafields.accentuate.free-shipping %}
+                    <div class="card-badge">Free Shipping</div>
+                    {% endif %}
+                </div>
+                <div class="product-card__img">
+                    <img src="{{ block.settings.product.featured_image.src | img_url: 'large' }}" alt="">
+                </div>
+                <h5 class="product-card__title">{{ block.settings.product.title | upcase }}</h5>
+                <div class="product-card__stars">
+                    {% for item in (1..block.settings.product.metafields.accentuate.stars) %}
+                    <span>{% render 'star' %}</span>
+                    {% endfor %}
+                </div>
+                <span class="product-card__price">
+                    {%- if block.settings.product.price_varies -%}
+                    {{ block.settings.product.price_min | money_without_trailing_zeros }}
+                    <span aria-hidden="true">+</span>
+                    {%- else -%}
+                    <p>
+                        {{ block.settings.product.price | money_without_trailing_zeros }}
+                    </p>
+                    {%- endif -%}
+                </span>
+
+            </a>
+        </li>
+        {%- endfor -%}
+    </ul>
+</section>
+
+
+{% schema %}
+
+{
+    "name": "t:sections.product_recommendation.name",
+    "tag": "section",
+    "class": "section",
+   
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "default": "You might also like",
+            "label": "t:sections.product_recommendation.settings.title.label"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "product",
+            "name": "t:sections.product_recommendation.blocks.name",
+            "settings": [
+                {
+                    "type": "product",
+                    "id": "product",
+                    "label": "t:sections.product_recommendation.blocks.settings.product.label"
+                }
+            ]
+        }
+    ],
+    "max_blocks": 4,
+    "default": {
+        "blocks": [
+            {
+                "type": "product"
+            }
+        ]
+  }
+}
+
+{% endschema %}

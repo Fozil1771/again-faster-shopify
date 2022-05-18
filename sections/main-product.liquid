@@ -1,0 +1,219 @@
+{{ 'https://unpkg.com/swiper@8/swiper-bundle.min.css' | stylesheet_tag }}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+
+
+
+<form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+
+  <div class="product-details">
+    <div class="product-details__slider">
+      <div class="swiper product-swiper">
+        <div class="swiper-wrapper">
+          {% for image in product.images %}
+          <div class="swiper-slide">
+            <img src="{{ image.src | img_url: 'large' }}" alt="{{ image.alt | escape }}">
+          </div>
+
+          {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+
+    <div class="product-details__content">
+      <h1>{{ product.title | upcase }}</h1>
+      <div class="product-variant__price">
+        <span id="variant-price">{{current_variant.price | money}}</span>
+        <span id="variant-price-old" class="variant-price-old">{{current_variant.compare_at_price | money}}</span>
+
+      </div>
+      <div class="product-card__stars">
+        {% for item in (1..product.metafields.accentuate.stars) %}
+        <span>{% render 'star' %}</span>
+        {% endfor %}
+        <span>18 reviews</span>
+      </div>
+
+      <div class="product-affirm">
+        <span>pay as low as 56/mo Learn More</span>
+      </div>
+
+      <p class="product-desc">
+        {{ product.description }}
+      </p>
+
+      <div class="add-to-cart">
+        <div class="product__options">
+          {% for variant in product.variants %}
+          <div class="product__option">
+
+            {% if variant.available %}
+
+            <input class="all-variants" type="radio" name="id" data-variant-price="{{ variant.price | money }}"
+              data-variant-price-old="{{ variant.compare_at_price | money }}" id="{{ variant.id }}"
+              value="{{ variant.id }}" {% if variant.available and variant.price==current_variant.price %} checked {%
+              endif %}>
+            <label for="{{ variant.id }}">{{ variant.title }}</label>
+
+            {% else %}
+            <label class="sold-out" for="variant-{{ forloop.index }}">{{ variant.title }}</label>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        <input style="display: none;" type="number" id="Quantity" name="quantity" value="1" min="1">
+
+        {% if product.metafields.accentuate.free-shipping %}
+        <div class="product-shipping">
+          <span><em>Available for Free shipping!</em></span>
+        </div>
+        {% endif %}
+
+        <button class="product-add-to-cart" type="submit" name="add">Add to Cart</button>
+      </div>
+
+
+      <div class="product-recommendations">
+        {% assign recommendedProducts = product.metafields.accentuate.recommendedProducts | split: "|" %}
+
+        <h4>Frequently bought with</h4>
+        <div class="product-recommendations__content">
+          {% for productItem in recommendedProducts %}
+          <div class="recommendations-item">
+
+            <div>
+              <img src="{{all_products[productItem].featured_image | img_url }}" alt="">
+            </div>
+            <div>
+              <h5>{{all_products[productItem].title}}</h5>
+              <a href="/cart/add">Add To Cart</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</form>
+
+
+
+{{ 'https://unpkg.com/swiper@8/swiper-bundle.min.js'| script_tag }}
+{{'https://code.jquery.com/jquery-3.6.0.min.js' | script_tag }}
+<!-- {{'script-cart.js' | asset_url | script_tag }} -->
+
+
+<script>
+  let swiper = new Swiper(".product-swiper", {
+    slidesPerView: 1,
+    loop: true,
+    direction: "vertical",
+    // allowTouchMove: true,
+    draggable: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+</script>
+
+<script defer>
+  const priceContainerNew = $("#variant-price");
+  const priceContainerOld = $("#variant-price-old");
+  const variantRadio = $(".all-variants");
+
+  let formData = {
+    'items': [{
+      'id': null,
+      'quantity': 1
+    }]
+  };
+
+
+  $(variantRadio).on("click", function () {
+    let priceNew = $(this).attr("data-variant-price");
+    let priceOld = $(this).attr("data-variant-price-old")
+    priceContainerNew.text(priceNew);
+    priceContainerOld.text(priceOld)
+
+    formData["items"][0] = {
+      'id': $(this).attr("id"),
+      'quantity': 1
+    }
+    console.log(formData)
+  });
+
+  let addToCartBtn = document.getElementById('AddToCartForm')
+
+
+  addToCartBtn.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let cartDrawer = document.getElementById('cart-drawer')
+    let addToCartForm = document.querySelector('form[action$="/cart/add"]');
+    // let formData = new FormData(addToCartForm);
+    cartDrawer.classList.add('cart-open')
+
+    fetch(window.Shopify.routes.root + 'cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(() => {
+        return fetch(window.Shopify.routes.root + 'cart.js')
+          .then(response => {
+            console.log(response)
+            return response.json()
+          })
+          .then(products => {
+            if (cartDrawer.classList.contains('cart-open')) {
+              console.log(products)
+              cartContainer.innerHTML = '';
+              products.items.forEach(product => {
+                cartContainer.insertAdjacentHTML('beforeend',
+                  `
+                                <div class="cart-item" >
+                                    <div class="cart-item__img">
+                                        <img src="${product.image}" alt="${product.handle}" />    
+                                    </div>
+                                    <div class="cart-item__content">
+                                        <div class="cart-item__info">
+                                            <h2>${product.title}</h2>
+                                            <span>${product.variant_title}</span>
+                                        </div>
+                                        <div class="cart-item__count">
+                                            <button class="count-btn count-decrement" data-key=${product.key} type="button">-</button>
+                                            <span class="counter" data-counter=${product.quantity}>${product.quantity}</span>
+                                            <button class="count-btn count-increment" data-key=${product.key} type="button">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="cart-item__price">
+                                        <span>${product.price}</span>
+                                    </div>
+
+                                    <button class="cart-item__remove"  data-key=${product.key}>remove</button>
+                                </div>
+                            `
+                )
+              });
+              document.querySelector(".cart-total-price").textContent = (products.items_subtotal_price / 100).toFixed(2)
+              cartDrawer.style.right = 0;
+            }
+
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      })
+      .catch((error) => {
+        return console.error('Error:', error);
+      });
+
+  })
+
+</script>

@@ -1,0 +1,18 @@
+{
+    "sections": {
+        "main-header": {
+            "type": "image-with-text"
+        },
+        "product-slider": {
+            "type": "products-slider"
+        },
+        "collage": {
+            "type": "collage"
+        }
+    },
+    "order": [
+        "main-header",
+        "product-slider",
+        "collage"
+    ]
+}

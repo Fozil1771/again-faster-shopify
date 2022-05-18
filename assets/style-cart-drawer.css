@@ -1,0 +1,32 @@
+.cart {
+	position: fixed;
+	background: #fff;
+	top: 0;
+	right: -100%;
+	width: 480px;
+	height: 100%;
+	padding: 24px 24px 40px 24px;
+	z-index: 100;
+	transition: 0.3s;
+	overflow-y: scroll;
+}
+
+.cart-head {
+	display: flex;
+	justify-content: space-between;
+}
+
+.cart-item {
+	display: grid;
+}
+
+.cart-item__img {
+	width: 150px;
+	height: 120px;
+}
+
+.cart-item__img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}

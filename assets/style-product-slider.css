@@ -19,3 +19,24 @@
 .product-slider {
 	margin: 5rem 0;
 }
+
+.product-item__title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.product-item__title svg {
+	transition: 0.3s;
+	transform: translateX(-100%);
+	opacity: 0;
+}
+
+.product-item__title svg path {
+	fill: #000;
+}
+
+.product-item:hover .product-item__title svg {
+	transform: translateX(4px);
+	opacity: 1;
+}

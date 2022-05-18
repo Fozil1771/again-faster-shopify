@@ -20,6 +20,7 @@
     {{ 'style-product-list.css' | asset_url | stylesheet_tag }}
     {{ 'style-product-card.css' | asset_url | stylesheet_tag }}
     {{ 'style-pdp.css' | asset_url | stylesheet_tag }}
+    {{ 'style-cart-drawer.css' | asset_url | stylesheet_tag }}
 
 
     <!-- slider link -->
@@ -33,11 +34,18 @@
 
     {% section 'header' %}
 
+    {% section 'cart-drawer' %}
+
     <main role="main">
       {{ content_for_layout }}
     </main>
 
     {% section 'footer' %}
+
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
+      </script> -->
 
 
     {{ 'https://unpkg.com/swiper@8/swiper-bundle.min.js'| script_tag }}

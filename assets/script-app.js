@@ -14,14 +14,3 @@ var swiper = new Swiper('.swiper', {
     }
 });
 
-
-new Swiper(".product-swiper", {
-    direction: "vertical",
-    allowTouchMove: true,
-    draggable: true,
-    freeMode: true,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-});

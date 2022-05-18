@@ -416,6 +416,22 @@
                 "name": "tttt"
             }
         },
+        "product_recommendation": {
+            "name": "Recommendation products",
+            "settings": {
+                "title": {
+                    "label": "Heading"
+                }
+            },
+            "blocks": {
+                "name": "Product",
+                "settings": {
+                    "product": {
+                        "label": "Select product"
+                    }
+                }
+            }
+        },
         "footer": {
             "name": "Footer",
             "blocks": {

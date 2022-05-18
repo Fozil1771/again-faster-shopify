@@ -1,0 +1,171 @@
+<aside class="cart" id="cart-drawer">
+    <form action="/cart" method="post" novalidate>
+        <div class="cart-head">
+            <h4 class="cart-title">
+                My Cart
+            </h4>
+            <span id="cart-close">
+                {% render 'icon-close' %}
+            </span>
+        </div>
+        <div class="divider">
+            {% if cart.item_count > 0 %}
+            <div class="cart-content">
+                <!-- {% for item in cart.items %}
+        {% endfor %} -->
+            </div>
+            <p class="cart-total-price">sub total : {{ cart.total_price | money }}</p>
+            {% else %}
+            <div class="cart-empty">
+                Cart is empty
+            </div>
+            {% endif %}
+        </div>
+    </form>
+</aside>
+
+
+
+
+<script defer>
+    let cartBtn = document.getElementById('cart-btn')
+    let cartDrawer = document.getElementById('cart-drawer')
+    let cartClose = document.getElementById('cart-close')
+
+    let cartContainer = document.querySelector('.cart-content')
+
+    cartBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        cartDrawer.style.right = 0 + '%'
+        cartDrawer.classList.add('cart-open')
+        if (cartDrawer.classList.contains('cart-open')) {
+            fetch(window.Shopify.routes.root + 'cart.js')
+                .then(response => {
+                    console.log(response)
+                    return response.json()
+                })
+                .then(products => {
+
+                    cartContainer.innerHTML = '';
+                    products.items.forEach(product => {
+                        cartContainer.insertAdjacentHTML('beforeend',
+                            `
+                                <div class="cart-item" >
+                                    <div class="cart-item__img">
+                                        <img src="${product.image}" alt="${product.handle}" />    
+                                    </div>
+                                    <div class="cart-item__content">
+                                        <div class="cart-item__info">
+                                            <h2>${product.title}</h2>
+                                            <span>${product.variant_title}</span>
+                                        </div>
+                                        <div class="cart-item__count">
+                                            <button class="count-btn count-decrement" data-key=${product.key} type="button">-</button>
+                                            <span class="counter" data-counter=${product.quantity}>${product.quantity}</span>
+                                            <button class="count-btn count-increment" data-key=${product.key} type="button">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="cart-item__price">
+                                        <span>${product.price}</span>
+                                    </div>
+
+                                    <button class="cart-item__remove"  data-key=${product.key}>remove</button>
+                                </div>
+                            `
+                        )
+                    });
+
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+    })
+
+    cartClose.addEventListener('click', () => {
+        cartDrawer.style.right = -100 + '%'
+        cartDrawer.classList.remove('cart-open')
+    })
+
+
+    document.querySelector(".cart-content").addEventListener("click", e => {
+        console.log("target: ", e.target)
+
+
+
+        if (e.target.classList.contains("cart-item__remove")) {
+            let formData = {
+                "id": e.target.getAttribute("data-key"),
+                "quantity": 0
+            };
+            fetchChange(formData)
+            e.target.parentElement.remove()
+        }
+
+        if (e.target.classList.contains("count-increment")) {
+            let target = e.target;
+            let quantity = target.previousElementSibling;
+            console.log("target quantity: ", quantity)
+
+            quantity.textContent = Number(quantity.textContent) + 1;
+            let formData = {
+                "id": target.getAttribute("data-key"),
+                "quantity": quantity.textContent
+            };
+            console.log('incremented', formData)
+
+            fetchChange(formData, quantity, target)
+        }
+
+        if (e.target.classList.contains("count-decrement")) {
+            let target = e.target;
+            let quantity = target.nextElementSibling;
+            console.log("target quantity: ", quantity)
+            if (Number(quantity.textContent) > 1)
+                quantity.textContent = Number(quantity.textContent) - 1;
+
+            let formData = {
+                "id": target.getAttribute("data-key"),
+                "quantity": quantity.textContent
+            };
+            console.log('decrement', formData)
+
+            fetchChange(formData, quantity, target)
+        }
+    })
+
+    // document.querySelector(".cart-item").addEventListener("click", e => {
+    //     console.log(e)
+
+    // })
+
+
+
+    function fetchChange(data, quantity, target) {
+        fetch(window.Shopify.routes.root + 'cart/change.js', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => {
+                res.json().then((changed) => {
+                    let currentQty = changed.items.find(item => item.key === data.id)
+                    console.log("data 1: ", currentQty.quantity)
+                    console.log("data 2: ", quantity.textContent)
+                    console.log("data 3: ", target)
+                    if (currentQty.quantity < Number(quantity.textContent)) {
+                        target.disabled = true
+                    } else {
+                        target.disabled = false
+                    }
+                    document.querySelector(".cart-total-price").textContent = (changed.items_subtotal_price / 100).toFixed(2)
+                })
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+</script>

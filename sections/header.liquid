@@ -23,7 +23,7 @@
 						{% when 'profile' %}
 						<a href="{{ link.url }}"> {% render 'user' %} </a>
 						{% when 'bag' %}
-						<a href="{{ link.url }}"> {% render 'bag' %} </a>
+						<span id="cart-btn"> {% render 'bag' %} </span>
 						{% endcase %}
 					</li>
 					{% endfor %}
@@ -41,41 +41,8 @@
 
 {% schema %}
 {
-"name": "t:sections.header.name",
-"class": "nav-wrapper",
-"settings": [
-{
-"type": "select",
-"id": "color_scheme",
-"options": [
-{
-"value": "transparent",
-"label": "t:sections.all.colors.transparent.label"
-},
-{
-"value": "accent-1",
-"label": "t:sections.all.colors.accent_1.label"
-},
-{
-"value": "accent-2",
-"label": "t:sections.all.colors.accent_2.label"
-},
-{
-"value": "background-1",
-"label": "t:sections.all.colors.background_1.label"
-},
-{
-"value": "background-2",
-"label": "t:sections.all.colors.background_2.label"
-},
-{
-"value": "inverse",
-"label": "t:sections.all.colors.inverse.label"
-}
-],
-"default": "transparent",
-"label": "t:sections.all.colors.label"
-}
-]
+	"name": "t:sections.header.name",
+	"class": "nav-wrapper"
+	
 }
 {% endschema %}

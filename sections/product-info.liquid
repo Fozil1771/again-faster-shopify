@@ -1,0 +1,32 @@
+{{ 'https://app.accentuate.io/assets/css/froala@3.1.0/froala_style.css' | stylesheet_tag }}
+<div class="wrapper-for-lines">
+    <div class="line-wrapper">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+
+    <section class="info-wrapper">
+
+
+        {% for html in product.metafields.accentuate.product_info_text %}
+
+        <div class="product-info {% if forloop.index != 1 %}
+                container
+            {% endif %}">
+            <div class="product-info__content {% if forloop.index == 1 %}
+            section-paragraph
+        {% endif %}">
+                {{ product.metafields.accentuate[html.metafield][html.index] }}
+            </div>
+            <div class="product-info__img">
+                <img src="{{ product.metafields.accentuate.product_info_media[forloop.index0][0].src }}"
+                    alt="{{ product.metafields.accentuate.product_info_media[forloop.index0][0].handle }}">
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </section>
+</div>
