@@ -121,7 +121,7 @@
   });
 </script>
 
-<script defer>
+<script>
   const priceContainerNew = $("#variant-price");
   const priceContainerOld = $("#variant-price-old");
   const variantRadio = $(".all-variants");
@@ -151,6 +151,7 @@
 
   let cartForm = document.querySelector('form[action$="/cart/add"]');
 
+
   cartForm.addEventListener("submit", (e) => {
     e.preventDefault();
     let cartDrawer = document.getElementById('cart-drawer')
@@ -172,50 +173,7 @@
           cartDrawer.classList.add('cart-open')
           cartBody.style.right = 0;
 
-          return fetch(window.Shopify.routes.root + 'cart.js')
-            .then(response => {
-              console.log(response.ok)
-              return response.json()
-            })
-            .then(products => {
-              if (cartDrawer.classList.contains('cart-open')) {
-                console.log('products: ', products)
-                cartContainer.innerHTML = '';
-                products.items.forEach(product => {
-                  cartContainer.insertAdjacentHTML('beforeend',
-                    `
-                      <div class="cart-item" >
-                          
-                          <div class="cart-item__img">
-                              <img src="${product.image}" alt="${product.handle}" />    
-                          </div>
-                          <div class="cart-item__content">
-                              <div class="cart-item__info">
-                                  <h2>${product.product_title}</h2>
-                                  <span>${product.variant_title}</span>
-                              </div>
-                              <div class="cart-item__count">
-                                  <button class="count-btn count-decrement" type="button" data-key=${product.key} type="button">{% render 'icon-minus' %}</button>
-                                  <span class="counter" type="button" data-counter=${product.quantity}>${product.quantity}</span>
-                                  <button class="count-btn count-increment" type="button" data-key=${product.key} type="button">{% render 'icon-plus' %}</button>
-                              </div>
-                          </div>
-                          <div class="cart-item__price">
-                              <span>$${(product.price / 100).toFixed(2)}</span>
-                              <button class="cart-item__remove" type="button" data-key=${product.key}>{% render 'icon-remove' %}</button>
-                          </div>
-                      </div>
-                  `
-                  )
-                });
-                document.querySelector(".cart-total-price").textContent = '$' + (products.items_subtotal_price / 100).toFixed(2)
-
-              }
-
-            })
-            .catch((error) => {
-              return console.log(error)
-            });
+          return getProducts()
         } else {
           alert('Product is already in cart')
         }
