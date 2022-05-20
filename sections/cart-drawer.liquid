@@ -9,32 +9,42 @@
             </span>
         </div>
 
-
-        <div class="cart-content">
-
+        <div class="cart-empty cart-none">
+            <h3>Cart is empty</h3>
+            <a href="/collections">Explore more products</a>
         </div>
-        <div class="cart-footer">
-            <div class="cart-subtotal">
-                <span class="cart-subtotal__title">Subtotal</span>
-                <span class="cart-total-price">{{ cart.total_price | money }}</span>
+
+        <div class="cart-inner ">
+            <div class="cart-content">
+
             </div>
-            <p class="cart-footer__text">Tax and shipping calculates at checkout.</p>
-            <div class="cart-affirm">
-                {% render 'icon-affirm' %}
-                <p>pay as low as 56/mo <a href="#">Learn More</a></p>
+            <div class="cart-footer">
+                <div class="cart-subtotal">
+                    <span class="cart-subtotal__title">Subtotal</span>
+                    <span class="cart-total-price">{{ cart.total_price | money }}</span>
+                </div>
+                <p class="cart-footer__text">Tax and shipping calculates at checkout.</p>
+                <div class="cart-affirm">
+                    {% render 'icon-affirm' %}
+                    <p>pay as low as 56/mo <a href="#">Learn More</a></p>
+                </div>
+                <button class="btn-primary">Continue to
+                    Checkout</button>
             </div>
-            <button class="product-add-to-cart">Continue to
-                Checkout</button>
         </div>
 
-        </div>
     </form>
 </aside>
 
 
 <script>
+    let cartInner = document.querySelector('.cart-inner')
+    let cartContainer = document.querySelector('.cart-content')
+    let cartEmpty = document.querySelector('.cart-empty')
+
+
     function getProducts() {
-        let cartContainer = document.querySelector('.cart-content')
+
 
         fetch(window.Shopify.routes.root + 'cart.js')
             .then(response => {
@@ -43,12 +53,20 @@
             })
             .then(products => {
 
-                cartContainer.innerHTML = '';
 
-                products.items.forEach(product => {
-                    console.log('product: ', product)
-                    cartContainer.insertAdjacentHTML('beforeend',
-                        `
+                if (products.item_count != 0) {
+
+                    cartInner.classList.remove('cart-none')
+                    cartEmpty.classList.add('cart-none')
+
+                    cartContainer.innerHTML = '';
+
+                    document.querySelector(".cart-total-price").textContent = '$' + (products.items_subtotal_price / 100).toFixed(2)
+
+                    products.items.forEach(product => {
+                        console.log('product: ', product)
+                        cartContainer.insertAdjacentHTML('beforeend',
+                            `
                         <div class="cart-item" >
                             
                             <div class="cart-item__img">
@@ -71,8 +89,12 @@
                             </div>
                         </div>
                         `
-                    )
-                });
+                        )
+                    });
+                } else {
+                    cartInner.classList.add('cart-none')
+                    cartEmpty.classList.remove('cart-none')
+                }
 
             })
             .catch((error) => {
@@ -91,9 +113,9 @@
         e.preventDefault()
         cartBody.style.right = 0 + '%'
         cartDrawer.classList.add('cart-open')
-        // if (cartDrawer.classList.contains('cart-open')) {
+
         getProducts()
-        // }
+
 
     })
 
@@ -103,10 +125,9 @@
     })
 
 
-    document.querySelector(".cart-content").addEventListener("click", e => {
+
+    document.querySelector('.cart-content').addEventListener("click", e => {
         console.log("target: ", e.target)
-
-
 
         if (e.target.parentElement.classList.contains("cart-item__remove")) {
             let target = e.target.parentElement;
@@ -124,13 +145,22 @@
                 body: JSON.stringify(formData)
             })
                 .then(res => {
-                    res.json().then((changed) => {
-                        document.querySelector(".cart-total-price").textContent = '$' + (changed.items_subtotal_price / 100).toFixed(2)
+                    res.json().then((items) => {
+                        document.querySelector(".cart-total-price").textContent = '$' + (items.items_subtotal_price / 100).toFixed(2)
+
+                        if (items.item_count == 0) {
+                            cartInner.classList.add('cart-none')
+                            cartEmpty.classList.remove('cart-none')
+                        }
                     })
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 });
+
+
+
+
         }
 
         if (e.target.parentElement.classList.contains("count-increment")) {
@@ -165,10 +195,6 @@
         }
     })
 
-    // document.querySelector(".cart-item").addEventListener("click", e => {
-    //     console.log(e)
-
-    // })
 
 
 
@@ -183,11 +209,9 @@
             .then(res => {
                 console.log('cart response', res)
                 res.json().then((changed) => {
-                    console.log('changed', changed)
+
                     let currentQty = changed.items.find(item => item.key === data.id)
-                    // console.log("data 1: ", currentQty.quantity)
-                    // console.log("data 2: ", quantity.textContent)
-                    // console.log("data 3: ", target)
+
                     if (currentQty.quantity < Number(quantity.textContent)) {
                         target.parentElement.disabled = true
                     } else {

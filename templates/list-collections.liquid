@@ -1,4 +1,4 @@
-{% for collection in collections %}
+<!-- {% for collection in collections %}
   {% unless collection.handle == 'frontpage' %}
     {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
     <a href="{{ collection.url }}">More {{ collection_title }} &rsaquo;</a>
@@ -14,4 +14,64 @@
       </div>
     {% endfor %}
   {% endunless %}
-{% endfor %}
+{% endfor %} -->
+
+<!-- new -->
+<div class="container">
+
+
+  {% for collection in collections %}
+  {% unless collection.handle == 'frontpage' %}
+  {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
+  <a href="{{ collection.url }}">More {{ collection_title }} &rsaquo;</a>
+  <ul class="collection-products">
+    {% for product in collection.products limit: 5 %}
+
+
+
+    <li>
+      <a class="product-card" href="{{ product.url | within: collection }}">
+        <div class="product-card__badges">
+
+          {% unless product.available %}<br>
+          <div class="cart-badge">sold out</div>
+          {% endunless %}
+
+          {% if product.metafields.accentuate.category != blank %}
+          <div class="card-badge card-badge-fill">{{product.metafields.accentuate.category}}</div>
+          {% endif %}
+          {% if product.compare_at_price != blank %}
+          <div class="card-badge card-badge-fill">Sale</div>
+          {% endif %}
+          {% if product.metafields.accentuate.free-shipping %}
+          <div class="card-badge">Free Shipping</div>
+          {% endif %}
+
+        </div>
+        <div class="product-card__img">
+          <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="">
+        </div>
+
+        <h5 class="product-card__title">{{ product.title | upcase }}</h5>
+        <div class="product-card__stars">
+          {% for item in (1..product.metafields.accentuate.stars) %}
+          <span>{% render 'star' %}</span>
+          {% endfor %}
+        </div>
+
+
+        <div class="product-card__price">
+          <span id="variant-price">{{product.price | money}}</span>
+          <span id="variant-price-old" class="variant-price-old">{{product.compare_at_price |
+            money}}</span>
+
+        </div>
+
+
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endunless %}
+  {% endfor %}
+</div>

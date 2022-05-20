@@ -1,6 +1,6 @@
 <!-- /templates/customers/register.liquid -->
 
-{% form 'create_customer' %}
+<!-- {% form 'create_customer' %}
 
 {{ form.errors | default_errors }}
 
@@ -17,5 +17,43 @@
 <input type="password" value="" name="customer[password]" size="30" />
 
 <input type="submit" value="Create" />
+
+{% endform %} -->
+
+
+
+{% form 'create_customer' %}
+
+{{ form.errors | default_errors }}
+
+
+<div class="register">
+    <h1>Create an Account</h1>
+    <div class="register-body">
+        <div class="input-group">
+            <div class="input-item">
+                <label for="first_name">First Name</label>
+                <input type="text" value="" name="customer[first_name]" size="30" />
+            </div>
+            <div class="input-item">
+                <label for="last_name">Last Name</label>
+                <input type="text" value="" name="customer[last_name]" size="30" />
+            </div>
+        </div>
+        <div class="input-item">
+            <label for="email">Email Address</label>
+            <input type="email" value="" name="customer[email]" size="30" />
+        </div>
+        <div class="input-item">
+            <label for="password">Password</label>
+            <input type="password" value="" name="customer[password]" size="30" />
+        </div>
+    </div>
+    <button class="btn-primary register-btn register-singup" type="submit">Create an Account</button>
+    <p class="register-hasAccount">Already have an account?</p>
+    <a href="/account/login" class="btn-primary--outline register-btn register-login">Log in</a>
+</div>
+
+
 
 {% endform %}

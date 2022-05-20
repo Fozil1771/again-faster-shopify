@@ -1,6 +1,6 @@
 <!-- /templates/customers/login.liquid -->
 
-<h2>Login</h2>
+<!-- <h2>Login</h2>
 {% form 'customer_login' %}
 
 {{ form.errors | default_errors }}
@@ -11,7 +11,7 @@
 <label for="customer_password">Password</label>
 <input type="password" name="customer[password]" />
 
-<input type="submit" value="Sign In" />
+<input type="submit" value="Login" />
 
 {% endform %}
 
@@ -25,4 +25,66 @@
 
 <input type="submit" value="Submit" />
 
-{% endform %}
+{% endform %} -->
+
+
+<div class="reset-password form">
+    <h1 id="recover">Reset password</h1>
+    <div>
+        {% form 'recover_customer_password' %}
+
+
+        <div class="form-body">
+            <div class="input-item">
+                <label for="password">Email</label>
+                <input type="email" name="customer[email]" />
+            </div>
+
+
+        </div>
+        {{ form.errors | default_errors }}
+
+        <button class="btn-primary--outline form-login form-btn" type="submit">Reset password</button>
+
+        {% endform %}
+    </div>
+</div>
+
+<div class="loginForm form">
+    <h1 id="login">Log in</h1>
+
+    <div>
+        {% form 'customer_login' %}
+
+        <div class="form-body">
+            <div class="input-item">
+                <label for="customer_email">Email</label>
+                <input type="email" name="customer[email]" />
+            </div>
+            <div class="input-item">
+                <label for="customer_password">Password</label>
+                <input type="password" name="customer[password]" />
+                <a class="forgot-password" href="#recover">Forgot Password?</a>
+            </div>
+        </div>
+        {{ form.errors | default_errors }}
+        <button class="btn-primary--outline form-login form-btn" type="submit">Log in</button>
+        <p class="form-hasAccount">Don’t have an account yet?</p>
+        <a href="/account/register" class="btn-primary form-singup form-btn">Create an Account</a>
+
+        {% endform %}
+    </div>
+
+</div>
+
+
+<script>
+    // let resetPassword = document.querySelector('.forgot-password')
+    // let resetForm = document.querySelector('.reset-password')
+    // let regisetForm = document.querySelector('.loginForm')
+
+    // resetPassword.addEventListener('click', () => {
+    //     resetForm.classList.remove('form-hide')
+    //     regisetForm.classList.add('form-hide')
+    // })
+</script>

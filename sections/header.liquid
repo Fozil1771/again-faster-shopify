@@ -16,12 +16,13 @@
 				</ul>
 				<ul class="nav-action">
 					{% for link in linklists.menu-action.links %}
+
 					<li class="nav-list__item">
 						{% assign linkName = link.title %} {% case linkName %} {% when
 						'search' %}
 						<a href="{{ link.url }}"> {% render 'search' %} </a>
 						{% when 'profile' %}
-						<a href="{{ link.url }}"> {% render 'user' %} </a>
+						<a href="{{ link.url }}" class="profile"> {% render 'user' %} </a>
 						{% when 'bag' %}
 						<span id="cart-btn"> {% render 'bag' %} </span>
 						{% endcase %}
@@ -37,12 +38,16 @@
 	if ("{{ template }}" != "index") {
 		document.querySelector(".header-main").classList.add("header-dark");
 	}
+
+	if (!("{{ shop.customer_accounts_enabled }}" && "{{ customer }}")) {
+		document.querySelector('.profile').setAttribute('href', '/account/register')
+	}
 </script>
 
 {% schema %}
 {
-	"name": "t:sections.header.name",
-	"class": "nav-wrapper"
-	
+"name": "t:sections.header.name",
+"class": "nav-wrapper"
+
 }
 {% endschema %}
