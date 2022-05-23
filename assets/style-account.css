@@ -1,0 +1,136 @@
+.account-page {
+	display: flex;
+	align-items: flex-start;
+}
+
+.menu-bar {
+	height: 100vh;
+	flex: 0 1 25%;
+	padding: 4.5rem 2rem;
+	background: #fbfbfb;
+}
+
+.menu-bar__title {
+	font-size: 1.5rem;
+	font-weight: 400;
+	text-transform: uppercase;
+}
+
+.menu-bar__list {
+	margin-top: 2.5rem;
+}
+
+.menu-bar__list .menu-item {
+	margin-top: 1rem;
+}
+
+.menu-item a {
+	color: #000;
+}
+
+.account-content {
+	flex: 0 1 75%;
+	padding: 4.5rem 5rem;
+	margin: 0 auto;
+}
+
+.order {
+	width: 100%;
+}
+
+.order-header {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid #c4c4c4;
+}
+
+.order-body {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 1rem;
+	padding-bottom: 1.5rem;
+	border-bottom: 1px solid #c4c4c4;
+}
+
+.order-header__title,
+.order-body__item {
+	flex: 0 1 20%;
+	text-align: start;
+}
+
+.order-header__title:last-child,
+.order-body__item:last-child {
+	text-align: end;
+}
+
+.pagination {
+	margin-top: 1.5rem;
+	display: flex;
+	justify-content: space-between;
+}
+
+.pagination a {
+	color: #000;
+}
+
+.pagination .visuallyhidden {
+	visibility: hidden;
+}
+
+.pagination-numbers {
+	display: flex;
+	align-items: center;
+	column-gap: 0.25rem;
+}
+
+.pagination-num {
+	border-bottom: 1px solid #fff;
+}
+
+.pagination-active {
+	text-decoration: underline;
+	border-bottom-color: #000;
+}
+
+.address-book {
+	margin-top: 2.5rem;
+}
+
+.address-book__title {
+	font-size: 1rem;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.2rem;
+}
+
+.address-book__user {
+	margin-top: 1.5rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+}
+
+.address-book__content {
+	margin-top: 0.75rem;
+	line-height: 1.5rem;
+	margin-bottom: 2.5rem;
+}
+
+.address-book__link {
+	text-decoration: underline;
+	color: #000;
+}
+
+/* tab */
+
+.menu-item a.active {
+	text-decoration: underline;
+}
+
+.tab-body {
+	display: none;
+}
+
+.tab-body.active {
+	display: block;
+}

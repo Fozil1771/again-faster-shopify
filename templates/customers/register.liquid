@@ -24,12 +24,11 @@
 
 {% form 'create_customer' %}
 
-{{ form.errors | default_errors }}
 
 
-<div class="register">
+<div class="form">
     <h1>Create an Account</h1>
-    <div class="register-body">
+    <div class="form-body">
         <div class="input-group">
             <div class="input-item">
                 <label for="first_name">First Name</label>
@@ -49,9 +48,10 @@
             <input type="password" value="" name="customer[password]" size="30" />
         </div>
     </div>
-    <button class="btn-primary register-btn register-singup" type="submit">Create an Account</button>
-    <p class="register-hasAccount">Already have an account?</p>
-    <a href="/account/login" class="btn-primary--outline register-btn register-login">Log in</a>
+    {{ form.errors | default_errors }}
+    <button class="btn-primary form-btn form-singup" type="submit">Create an Account</button>
+    <p class="form-hasAccount">Already have an account?</p>
+    <a href="/account/login" class="btn-primary--outline form-btn form-login">Log in</a>
 </div>
 
 
