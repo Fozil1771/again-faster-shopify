@@ -1,5 +1,225 @@
-<!-- /templates/customers/addresses.liquid -->
+<div class="container">
+    <section class="account-page">
+        {% section 'account-sidebar' %}
 
+
+        <div class="tab-content" id="new-address">
+            <div class="">
+                {% form 'customer_address', customer.new_address %}
+                <h1>Add New Address</h1>
+                <div class="form-body">
+                    <div class="input-group">
+                        <div class="input-item">
+                            <label for="first_name">First Name</label>
+                            <input type="text" value="" name="address[first_name]" size="30" />
+                        </div>
+
+                        <div class="input-item">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" value="" name="address[last_name]" size="30" />
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <label for="address1">Address 1</label>
+                        <input type="text" value="" name="address[address1]" />
+                    </div>
+                    <div class="input-item">
+                        <label for="address2">Address 2</label>
+                        <input type="text" value="" name="address[address2]" />
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-item">
+                            <label for="city">Country</label>
+                            <input type="text" value="" name="address[country]" />
+                        </div>
+
+                        <div class="input-item">
+                            <label for="province">State</label>
+                            <input type="text" value="" name="address[city]" />
+                        </div>
+                    </div>
+                </div>
+
+                {{ form.errors | default_errors }}
+
+
+
+                <div class="form-footer">
+                    <button class="btn-primary form-btn form-singup" type="submit">Add New Address</button>
+                    <a href="#default-address">Cancel</a>
+                </div>
+
+                {% endform %}
+            </div>
+        </div>
+
+
+        <div class="addressess tab-content" id="default-address">
+
+            {% paginate customer.addresses by 3 %}
+            <div class="all-address">
+                {% for address in customer.addresses %}
+                <div class="address-book">
+
+
+                    {% if address == customer.default_address %}
+                    <h2 class="tab-content__title">Default Address</h2>
+                    {% else %}
+                    <h2 class="tab-content__title">Address {{ forloop.index }}</h2>
+                    {% endif %}
+
+                    <div class="address-book__content">
+                        {{ address | format_address }}
+                    </div>
+                    <div class="address-book__controls">
+
+                        <button id="EditFormButton_{{ address.id }}" class="address-edit-toggle"
+                            data-form-id="{{ address.id }}" aria-owns="EditAddress_{{ address.id }}"
+                            aria-expanded="false">Edit</button>
+                        <span>|</span>
+                        <form class="address-delete-form" method="post" action="/account/addresses/{{ address.id }}">
+                            <input type="hidden" name="_method" value="delete">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="hide edit-address" id="EditAddress_{{ address.id }}">
+                    {% form 'customer_address', address %}
+                    <h1>Edit Address</h1>
+                    <div class="form-body">
+                        <div class="input-group">
+                            <div class="input-item">
+                                <label for="first_name">First Name</label>
+                                <input type="text" value="{{form.first_name}}" name="address[first_name]" size="30" />
+                            </div>
+
+                            <div class="input-item">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" value="{{ form.last_name }}" name="address[last_name]" size="30" />
+                            </div>
+                        </div>
+                        <div class="input-item">
+                            <label for="address1">Address 1</label>
+                            <input type="text" value="{{ form.address1 }}" name="address[address1]" />
+                        </div>
+                        <div class="input-item">
+                            <label for="address2">Address 2</label>
+                            <input type="text" value="{{ form.address2 }}" name="address[address2]" />
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-item">
+                                <label for="city">Country</label>
+                                <input type="text" value="{{ form.country }}" name="address[country]" />
+                            </div>
+
+                            <div class="input-item">
+                                <label for="province">State</label>
+                                <input type="text" value="{{ form.city }}" name="address[city]" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {{ form.errors | default_errors }}
+
+
+
+                    <div class="form-footer">
+                        <button class="btn-primary form-btn form-singup" type="submit">Edit Address</button>
+                        <a href="#default-address" class="address-edit-toggle" data-form-id="{{ form.id }}">Cancel</a>
+                    </div>
+
+                    {% endform %}
+                </div>
+
+                {% endfor %}
+
+            </div>
+            <ul class=" pagination">
+
+                {% if paginate.pages > 1 %}
+                {%- if paginate.previous -%}
+                <li>
+                    <a href="{{ paginate.previous.url }}">
+                        Previous
+                    </a>
+                </li>
+                {%- else -%}
+
+                <li class="visuallyhidden">
+                    Previous
+                </li>
+                {%- endif -%}
+
+                <ul class="pagination-numbers">
+                    {%- for part in paginate.parts -%}
+                    {% if part.is_link %}
+                    <li>
+                        <a href="{{ part.url }}" class="pagination-num">
+                            {{ part.title }}
+                        </a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{{ part.url }}" class="pagination-active">
+                            {{ part.title }}
+                        </a>
+                    </li>
+                    {% endif %}
+                    {%- endfor -%}
+                </ul>
+
+
+                {%- if paginate.next -%}
+                <li>
+                    <a href="{{ paginate.next.url }}">
+                        Next
+                    </a>
+                </li>
+                {%- else -%}
+                <li class="visuallyhidden">
+                    Next
+                </li>
+                {%- endif -%}
+                {% endif %}
+            </ul>
+            {% endpaginate %}
+            <div class="add-new-address">
+                <a href="#new-address" class="btn-primary btn-primary--link">Add New Address</a>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+    document.querySelectorAll('.address-edit-toggle').forEach(function (button) {
+        button.addEventListener('click', function (evt) {
+            let formId = evt.target.dataset.formId;
+            let editButton = document.getElementById('EditFormButton_' + formId);
+            let editAddress = document.getElementById('EditAddress_' + formId);
+            let isExpanded = editButton.getAttribute('aria-expanded') === 'true';
+            editAddress.classList.toggle('hide');
+
+
+
+            editButton.setAttribute('aria-expanded', !isExpanded);
+            editButton.focus();
+        });
+    });
+
+
+</script>
+
+
+
+<!-- /templates/customers/addresses.liquid -->
+<!-- 
 <h2>New Address</h2>
 {% form 'customer_address', customer.new_address %}
 
@@ -23,7 +243,6 @@
 <label for="city">City</label>
 <input type="text" value="" name="address[city]" />
 
-<!-- See docs for @shopify/theme-addresses to support Country and Province -->
 <label for="country">Country</label>
 <input name="address[country]" />
 
@@ -38,4 +257,4 @@
 
 
 <input type="button" value="Submit" />
-{% endform %}
+{% endform %} -->

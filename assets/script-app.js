@@ -27,3 +27,5 @@ document.querySelectorAll(".menu-item input").forEach(tab => {
         document.querySelector(`#${e.target.dataset.id}`).classList.remove('tab-hidden');
     });
 })
+
+

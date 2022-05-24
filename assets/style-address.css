@@ -1,0 +1,51 @@
+.all-address {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+	grid-gap: 1rem;
+}
+
+.hide {
+	display: none;
+}
+/* 
+.hide.edit-address ~ div {
+	display: none;
+} */
+
+.address-book__user {
+	margin-top: 1.5rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+}
+
+.address-book__content {
+	margin-top: 0.75rem;
+	line-height: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+.address-book__link {
+	text-decoration: underline;
+	color: #000;
+}
+
+.address-book__controls {
+	margin-bottom: 2rem;
+	display: flex;
+	column-gap: 0.5rem;
+	align-items: baseline;
+}
+
+.address-book__controls a,
+.address-book__controls button {
+	border: none;
+	background: transparent;
+	text-decoration: underline;
+	color: #000;
+	font-size: calc(1rem - 2px);
+	font-weight: 400;
+}
+
+.add-new-address {
+	margin-top: 2rem;
+}
