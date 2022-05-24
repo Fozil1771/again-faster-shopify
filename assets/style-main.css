@@ -33,6 +33,12 @@ body::-webkit-scrollbar-thumb {
 	margin: 0 auto;
 }
 
+@media screen and (max-width: 1440px) {
+	.container {
+		padding: 0 1rem;
+	}
+}
+
 li {
 	list-style: none;
 }
