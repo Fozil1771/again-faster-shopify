@@ -69,3 +69,7 @@ svg path {
 	letter-spacing: 1px;
 	cursor: pointer;
 }
+
+.btn-primary--link {
+	padding: 0.75rem 2rem;
+}

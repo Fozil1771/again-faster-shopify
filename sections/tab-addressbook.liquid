@@ -1,0 +1,73 @@
+<div class="address-book">
+
+    <h2 class="address-book__title">Default Address</h2>
+
+    <h4 class="address-book__user">{{ customer.first_name }} {{ customer.last_name }}</h4>
+    <div class="address-book__content">
+        <p>{{ customer.default_address.address1 }}</p>
+        {% if customer.default_address.address2 != "" %}
+        <p>{{ customer.default_address.address2 }}</p>
+        {% endif %}
+        <p>
+            {{ customer.default_address.city}},
+            {% if address.province_code %}
+            {{ customer.default_address.province_code }},
+            {% endif %}
+            {{ customer.default_address.country }}</p>
+        <p>{{ customer.default_address.zip }}</p>
+        <p>{{ customer.default_address.phone }}</p>
+    </div>
+
+    <a href="{{ routes.account_addresses_url }}" class="btn-primary btn-primary--link">Add New Address</a>
+</div>
+
+{% form 'customer_address', customer.new_address %}
+
+
+<div class="">
+    <h1>Add New Address</h1>
+    <div class="form-body">
+        <div class="input-group">
+            <div class="input-item">
+                <label for="first_name">First Name</label>
+                <input type="text" value="" name="address[first_name]" size="30" />
+            </div>
+
+            <div class="input-item">
+                <label for="last_name">Last Name</label>
+                <input type="text" value="" name="address[last_name]" size="30" />
+            </div>
+        </div>
+        <div class="input-item">
+            <label for="address1">Address 1</label>
+            <input type="text" value="" name="address[address1]" />
+        </div>
+        <div class="input-item">
+            <label for="address2">Address 2</label>
+            <input type="text" value="" name="address[address2]" />
+        </div>
+
+        <div class="input-group">
+            <div class="input-item">
+                <label for="city">Country</label>
+                <input type="text" value="" name="address[country]" />
+            </div>
+
+            <div class="input-item">
+                <label for="province">State</label>
+                <input type="text" value="" name="address[city]" />
+            </div>
+        </div>
+    </div>
+
+    {{ form.errors | default_errors }}
+
+
+
+    <div class="form-footer">
+        <button class="btn-primary form-btn form-singup" type="submit">Add New Address</button>
+        <a href="#">Cancel</a>
+    </div>
+</div>
+
+{% endform %}

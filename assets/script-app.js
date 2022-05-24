@@ -14,3 +14,16 @@ var swiper = new Swiper('.swiper', {
     }
 });
 
+
+// tabulation in account page
+//
+document.querySelectorAll(".menu-item input").forEach(tab => {
+    tab.addEventListener('click', (e) => {
+        console.log(e.target.dataset.id)
+        document.querySelectorAll(".menu-item input").forEach(t => t.classList.remove('selected'));
+        e.target.classList.add('selected');
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.add('tab-hidden'));
+        console.log(document.querySelector(`#${e.target.dataset.id}`))
+        document.querySelector(`#${e.target.dataset.id}`).classList.remove('tab-hidden');
+    });
+})
