@@ -1,0 +1,58 @@
+<section class="product-reviews">
+    <h3 class="yotpo-title">
+        Reviews
+    </h3>
+    <div class="product-reviews__head yotpo-main-widget">
+        <div class="product-reviews__avg">
+            <h5 id="reviews_avg"></h5>
+            <div class="product-card__stars">
+                <div class="yotpo bottomLine" data-appkey="RdS4XwWMjTCMqHJgeTUlVwjqpAd41UiFCXbSOWdZ"
+                    data-domain="{{shop.permanent_domain | escape }}" data-product-id="{{ product.id }}"
+                    data-product-models="{{ product.id }}" data-name="{{ product.title | escape }}"
+                    data-url="{{ shop.url }}{{ product.url }}"
+                    data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+                    data-description="{{ product.description | escape }}"
+                    data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
+                </div>
+            </div>
+        </div>
+        <div class="product-reviews__timeline">
+
+        </div>
+        <button class="write-review-button">
+            write review
+        </button>
+    </div>
+    <div class="yotpo yotpo-main-widget" data-product-id="{{ product.id }}" data-name="{{ product.title | escape }}"
+        data-url="{{ shop.url }}{{ product.url }}"
+        data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+        data-price="{{ variant.price | money_without_currency }}" data-currency="{{ shop.currency }}"
+        data-description="{{ product.description | escape }}">
+    </div>
+</section>
+
+
+
+<script>
+    const productId = '{{ product.id }}'
+    const url = `https://api-cdn.yotpo.com/v1/widget/RdS4XwWMjTCMqHJgeTUlVwjqpAd41UiFCXbSOWdZ/products/${productId}/reviews.json`;
+    const options = {
+        method: 'GET',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' }
+    };
+    console.log(productId)
+
+    fetch(url, options)
+        .then(res => res.json())
+        .then(data => {
+            console.log("Data: ", data)
+            document.querySelector("#reviews_avg").textContent = data.response.bottomline.average_score.toFixed(1)
+        })
+        .catch(err => console.error('error:' + err));
+
+
+    document.querySelector('.write-review-button').addEventListener('click', () => {
+        document.querySelector('.write-review-wrapper.write-form').classList.toggle('active')
+    })
+
+</script>

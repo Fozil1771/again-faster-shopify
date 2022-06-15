@@ -173,3 +173,19 @@
 	margin-top: 1rem;
 	margin-bottom: 1.5rem;
 }
+
+.cart-action {
+	max-width: 360px;
+	display: flex;
+	justify-content: space-between;
+	column-gap: 20px;
+}
+
+.empty-cart {
+	margin-top: 2rem;
+	text-align: center;
+}
+
+.empty-cart h1 {
+	margin-bottom: 1rem;
+}

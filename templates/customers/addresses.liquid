@@ -57,34 +57,99 @@
 
         <div class="addressess tab-content" id="default-address">
 
-            {% paginate customer.addresses by 3 %}
-            <div class="all-address">
-                {% for address in customer.addresses %}
-                <div class="address-book">
 
 
-                    {% if address == customer.default_address %}
-                    <h2 class="tab-content__title">Default Address</h2>
-                    {% else %}
-                    <h2 class="tab-content__title">Address {{ forloop.index }}</h2>
-                    {% endif %}
+            <div class="address-content">
+                {% paginate customer.addresses by 3 %}
+                <div class="all-address">
+                    {% for address in customer.addresses %}
+                    <div class="address-book">
 
-                    <div class="address-book__content">
-                        {{ address | format_address }}
+
+                        {% if address == customer.default_address %}
+                        <h2 class="tab-content__title">Default Address</h2>
+                        {% else %}
+                        <h2 class="tab-content__title">Address {{ forloop.index }}</h2>
+                        {% endif %}
+
+                        <div class="address-book__content">
+                            {{ address | format_address }}
+                        </div>
+                        <div class="address-book__controls">
+
+                            <button id="EditFormButton_{{ address.id }}" class="address-edit-toggle"
+                                data-form-id="{{ address.id }}" aria-owns="EditAddress_{{ address.id }}"
+                                aria-expanded="false">Edit</button>
+                            <span>|</span>
+                            <form class="address-delete-form" method="post"
+                                action="/account/addresses/{{ address.id }}">
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
+
                     </div>
-                    <div class="address-book__controls">
+                    {% endfor %}
 
-                        <button id="EditFormButton_{{ address.id }}" class="address-edit-toggle"
-                            data-form-id="{{ address.id }}" aria-owns="EditAddress_{{ address.id }}"
-                            aria-expanded="false">Edit</button>
-                        <span>|</span>
-                        <form class="address-delete-form" method="post" action="/account/addresses/{{ address.id }}">
-                            <input type="hidden" name="_method" value="delete">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </div>
+
 
                 </div>
+                <ul class=" pagination">
+
+                    {% if paginate.pages > 1 %}
+                    {%- if paginate.previous -%}
+                    <li>
+                        <a href="{{ paginate.previous.url }}">
+                            Previous
+                        </a>
+                    </li>
+                    {%- else -%}
+
+                    <li class="visuallyhidden">
+                        Previous
+                    </li>
+                    {%- endif -%}
+
+                    <ul class="pagination-numbers">
+                        {%- for part in paginate.parts -%}
+                        {% if part.is_link %}
+                        <li>
+                            <a href="{{ part.url }}" class="pagination-num">
+                                {{ part.title }}
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="{{ part.url }}" class="pagination-active">
+                                {{ part.title }}
+                            </a>
+                        </li>
+                        {% endif %}
+                        {%- endfor -%}
+                    </ul>
+
+
+                    {%- if paginate.next -%}
+                    <li>
+                        <a href="{{ paginate.next.url }}">
+                            Next
+                        </a>
+                    </li>
+                    {%- else -%}
+                    <li class="visuallyhidden">
+                        Next
+                    </li>
+                    {%- endif -%}
+                    {% endif %}
+                </ul>
+                {% endpaginate %}
+                <div class="add-new-address">
+                    <a href="#new-address" class="btn-primary btn-primary--link">Add New Address</a>
+                </div>
+            </div>
+
+            <div class="edit-address-form">
+                {% for address in customer.addresses %}
                 <div class="hide edit-address" id="EditAddress_{{ address.id }}">
                     {% form 'customer_address', address %}
                     <h1>Edit Address</h1>
@@ -127,68 +192,16 @@
 
 
                     <div class="form-footer">
-                        <button class="btn-primary form-btn form-singup" type="submit">Edit Address</button>
+                        <button class="btn-primary form-btn form-singup" type="submit">Edit</button>
                         <a href="#default-address" class="address-edit-toggle" data-form-id="{{ form.id }}">Cancel</a>
                     </div>
 
                     {% endform %}
                 </div>
-
                 {% endfor %}
-
             </div>
-            <ul class=" pagination">
-
-                {% if paginate.pages > 1 %}
-                {%- if paginate.previous -%}
-                <li>
-                    <a href="{{ paginate.previous.url }}">
-                        Previous
-                    </a>
-                </li>
-                {%- else -%}
-
-                <li class="visuallyhidden">
-                    Previous
-                </li>
-                {%- endif -%}
-
-                <ul class="pagination-numbers">
-                    {%- for part in paginate.parts -%}
-                    {% if part.is_link %}
-                    <li>
-                        <a href="{{ part.url }}" class="pagination-num">
-                            {{ part.title }}
-                        </a>
-                    </li>
-                    {% else %}
-                    <li>
-                        <a href="{{ part.url }}" class="pagination-active">
-                            {{ part.title }}
-                        </a>
-                    </li>
-                    {% endif %}
-                    {%- endfor -%}
-                </ul>
 
 
-                {%- if paginate.next -%}
-                <li>
-                    <a href="{{ paginate.next.url }}">
-                        Next
-                    </a>
-                </li>
-                {%- else -%}
-                <li class="visuallyhidden">
-                    Next
-                </li>
-                {%- endif -%}
-                {% endif %}
-            </ul>
-            {% endpaginate %}
-            <div class="add-new-address">
-                <a href="#new-address" class="btn-primary btn-primary--link">Add New Address</a>
-            </div>
 
         </div>
 
@@ -198,6 +211,8 @@
 
 
 <script>
+    let addressContent = document.querySelector('.address-content')
+
     document.querySelectorAll('.address-edit-toggle').forEach(function (button) {
         button.addEventListener('click', function (evt) {
             let formId = evt.target.dataset.formId;
@@ -206,6 +221,7 @@
             let isExpanded = editButton.getAttribute('aria-expanded') === 'true';
             editAddress.classList.toggle('hide');
 
+            addressContent.classList.toggle('hide')
 
 
             editButton.setAttribute('aria-expanded', !isExpanded);

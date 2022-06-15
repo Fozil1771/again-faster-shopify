@@ -8,11 +8,15 @@
         },
         "product_recommendation": {
             "type": "product-recommendations"
+        },
+        "product-reviews": {
+            "type": "product-reviews"
         }
     },
     "order": [
         "main-product",
         "product-info",
-        "product_recommendation"
+        "product_recommendation",
+        "product-reviews"
     ]
 }

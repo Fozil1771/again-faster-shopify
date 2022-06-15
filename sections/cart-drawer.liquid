@@ -75,7 +75,7 @@
                             <div class="cart-item__content">
                                 <div class="cart-item__info">
                                     <h2>${product.product_title}</h2>
-                                    <span>${product.variant_title}</span>
+                                    <span>${product.variant_title ?? product.product_type}</span>
                                 </div>
                                 <div class="cart-item__count">
                                     <button class="count-btn count-decrement" type="button" data-key=${product.key} type="button">{% render 'icon-minus' %}</button>
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                             <div class="cart-item__price">
-                                <span>$${(product.price / 100).toFixed(2)}</span>
+                                <span>$${product.price ? (product.price / 100).toFixed(2) : (product.properties._original_bundle_price / 100).toFixed(2)}</span>
                                 <button class="cart-item__remove" type="button" data-key=${product.key}>{% render 'icon-remove' %}</button>
                             </div>
                         </div>

@@ -1,21 +1,21 @@
 {{ "-style-header.css" | asset_url | stylesheet_tag }}
 
 <header class="header-main">
-	<div class="nav-wrapper color-{{ section.settings.color_scheme }}">
+	<div class="nav-wrapper color-{{ section.settings.nav-color }}">
 		<div class="container">
 			<nav class="nav">
 				<div class="nav-logo">
 					<a href="/"> {% render 'logo' %} </a>
 				</div>
 				<ul class="nav-list">
-					{% for link in linklists.main-menu.links %}
+					{% for link in section.settings.menu-main.links %}
 					<li class="nav-list__item">
 						<a href="{{ link.url }}">{{ link.title | capitalize }}</a>
 					</li>
 					{% endfor %}
 				</ul>
 				<ul class="nav-action">
-					{% for link in linklists.menu-action.links %}
+					{% for link in section.settings.menu-action.links %}
 
 					<li class="nav-list__item">
 						{% assign linkName = link.title %} {% case linkName %} {% when
@@ -47,7 +47,51 @@
 {% schema %}
 {
 "name": "t:sections.header.name",
-"class": "nav-wrapper"
+"class": "nav-wrapper",
+"settings": [
+{
+"type": "link_list",
+"id": "menu-main",
+"label": "Select menu links"
+},
+{
+"type": "link_list",
+"id": "menu-action",
+"label": "Select menu action links"
+},
+{
+"type":"select",
+"id":"nav-color",
+"options":[
+{
+"value": "transparent",
+"label": "t:sections.all.colors.transparent.label"
+},
+{
+"value": "accent-1",
+"label": "t:sections.all.colors.accent_1.label"
+},
+{
+"value": "accent-2",
+"label": "t:sections.all.colors.accent_2.label"
+},
+{
+"value": "background-1",
+"label": "t:sections.all.colors.background_1.label"
+},
+{
+"value": "background-2",
+"label": "t:sections.all.colors.background_2.label"
+},
+{
+"value": "inverse",
+"label": "t:sections.all.colors.inverse.label"
+}
+],
+"default": "background-1",
+"label": "t:sections.all.colors.label"
+}
+]
 
 }
 {% endschema %}

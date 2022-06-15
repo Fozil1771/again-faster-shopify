@@ -1,6 +1,6 @@
 
 <section class="container">
-    <h3>{{ section.settings.title }}</h3>
+    <h3 class="products-recommendation__title">{{ section.settings.title }}</h3>
     <ul class="products-recommendation">
         {%- for block in section.blocks  -%}
         <script> console.log("{{block}}")</script>
@@ -19,9 +19,14 @@
                 </div>
                 <h5 class="product-card__title">{{ block.settings.product.title | upcase }}</h5>
                 <div class="product-card__stars">
-                    {% for item in (1..block.settings.product.metafields.accentuate.stars) %}
-                    <span>{% render 'star' %}</span>
-                    {% endfor %}
+                    <div class="yotpo bottomLine" data-appkey="RdS4XwWMjTCMqHJgeTUlVwjqpAd41UiFCXbSOWdZ"
+                        data-domain="{{shop.permanent_domain | escape }}" data-product-id="{{ product.id }}"
+                        data-product-models="{{ product.id }}" data-name="{{ product.title | escape }}"
+                        data-url="{{ shop.url }}{{ product.url }}"
+                        data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+                        data-description="{{ product.description | escape }}"
+                        data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
+                    </div>
                 </div>
                 <span class="product-card__price">
                     {%- if block.settings.product.price_varies -%}

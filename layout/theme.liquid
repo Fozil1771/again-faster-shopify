@@ -25,6 +25,7 @@
     {{ 'style-account.css' | asset_url | stylesheet_tag }}
     {{ 'style-address.css' | asset_url | stylesheet_tag }}
     {{ 'style-order.css' | asset_url | stylesheet_tag }}
+    {{ 'style-reviews.css' | asset_url | stylesheet_tag }}
 
 
     <!-- slider link -->
@@ -51,7 +52,9 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
       </script> -->
 
-
+<script type="text/javascript">
+(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/###APP_KEY###/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();
+</script>
     {{ 'https://unpkg.com/swiper@8/swiper-bundle.min.js'| script_tag }}
     {{ 'script-app.js' | asset_url | script_tag }}
   </body>

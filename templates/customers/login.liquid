@@ -28,8 +28,8 @@
 {% endform %} -->
 
 
-<div class="reset-password form">
-    <h1 id="recover">Reset password</h1>
+<div class="reset-password form" id="recover">
+    <h1>Reset password</h1>
     <div>
         {% form 'recover_customer_password' %}
 
@@ -45,13 +45,13 @@
         {{ form.errors | default_errors }}
 
         <button class="btn-primary--outline form-login form-btn" type="submit">Reset password</button>
-
+        <a href="/account/login">Return back</a>
         {% endform %}
     </div>
 </div>
 
-<div class="loginForm form">
-    <h1 id="login">Log in</h1>
+<div class="loginForm form" id="login">
+    <h1>Log in</h1>
 
     <div>
         {% form 'customer_login' %}
