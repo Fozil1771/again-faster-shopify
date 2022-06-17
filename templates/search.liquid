@@ -1,22 +1,38 @@
-{% paginate search.results by 10 %}
-  <form action="/search" method="get" role="search">
-    <input type="search" name="q" value="{{ search.terms | escape }}">
-    <button type="submit">search</button>
+{{ 'style-search.css' | asset_url | stylesheet_tag }}
+
+<div class="container">
+  <form action="{{ routes.search_url }}" class="search-form">
+    <input type="text" placeholder="Search" name="q" value="{{ search.terms | escape }}">
+    <button type="submit" class="btn-primary">Search</button>
   </form>
 
-  {% if search.performed %}
-    {% for item in search.results %}
-      {% if item.featured_image %}
-        <a href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
-          {{ item.featured_image.src | img_url: 'medium' | img_tag: item.featured_image.alt }}
-        </a>
-      {% endif %}
-      <h5>{{ item.title | link_to: item.url }}</h5>
-      <p>{{ item.content | strip_html | truncatewords: 50 }}</p>
-    {% else %}
-      no results
-    {% endfor %}
-  {% endif %}
+  <script>
+    console.log('{{ search.results | json }}')
+  </script>
 
-  {% if paginate.pages > 1 %}{{ paginate | default_pagination }}{% endif %}
-{% endpaginate %}
+
+
+  {% if search.results != blank %}
+  <div class="search-content"></div>
+  {% for item in search.results %}
+  <!-- item details -->
+
+  <a href="{{ item.url }}" class="search-item">
+    <div class="search-item__img">
+      <img src="{{ item.featured_image | img_url: 'medium' }}" alt="{{ item.title }}">
+    </div>
+    <h4>{{ item.title }}</h4>
+    <h5>{{ item.price | | money_with_currency }}</h5>
+
+  </a>
+
+
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-container">
+  <h3>No results</h3>
+</div>
+{% endif %}
+
+</div>

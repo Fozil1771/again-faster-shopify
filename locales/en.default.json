@@ -32,6 +32,12 @@
         "one": "{{ count }} item",
         "other": "{{ count }} items"
       }
+    },
+    "image-with-text": {
+      "title": "Team barbel"
     }
+  },
+  "cart": {
+    "title": "My Cart"
   }
 }
